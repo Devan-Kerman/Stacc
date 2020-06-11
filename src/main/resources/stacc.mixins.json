@@ -1,0 +1,17 @@
+{
+  "required": true,
+  "package": "net.devtech.stacc.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "StaccMixin",
+    "StaccMixin$InventoryMixin",
+    "StaccMixin$ItemAccess",
+    "StaccMixin$ItemStackMixin"
+  ],
+  "client": [
+    "StaccMixin$ItemRendererMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

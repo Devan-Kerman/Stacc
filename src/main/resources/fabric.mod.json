@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "id": "stacc",
+  "version": "${version}",
+  "name": "Stacc",
+  "license": "CC0-1.0",
+  "icon": "assets/stacc/icon.png",
+  "environment": "*",
+  "mixins": [
+    "stacc.mixins.json"
+  ],
+  "entrypoints": {
+    "main": [
+      "net.devtech.stacc.Stacc::onInitialize"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.8.4+build.198",
+    "fabric": "*",
+    "minecraft": ">=1.15.2"
+  }
+}
