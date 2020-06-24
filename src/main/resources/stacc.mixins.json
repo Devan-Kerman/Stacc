@@ -3,13 +3,14 @@
   "package": "net.devtech.stacc.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-    "StaccMixin",
-    "StaccMixin$InventoryMixin",
-    "StaccMixin$ItemAccess",
-    "StaccMixin$ItemStackMixin"
+    "InventoryMixin",
+    "ItemAccess",
+    "ItemStackMixin",
+    "PacketByteBufMixin",
+    "ServerPlayNetworkHandlerMixin"
   ],
   "client": [
-    "StaccMixin$ItemRendererMixin"
+    "ItemRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

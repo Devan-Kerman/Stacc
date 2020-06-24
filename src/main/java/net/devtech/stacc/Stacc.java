@@ -4,10 +4,11 @@ import java.io.IOException;
 import java.util.Properties;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
+import java.util.logging.Logger;
 
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
-import net.devtech.stacc.mixin.StaccMixin;
+import net.devtech.stacc.mixin.ItemAccess;
 
 import net.minecraft.item.Item;
 import net.minecraft.resource.Resource;
@@ -21,14 +22,10 @@ import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 
 public interface Stacc {
+	Logger LOGGER = Logger.getLogger("Stacc");
 	int DEFAULT = 1_000_000_000;
 
 	static void onInitialize() {
-		for (Item item : Registry.ITEM) {
-			System.out.println("test");
-			setMax(item, DEFAULT);
-		}
-		System.out.println("Stacc has initialized");
 		Identifier val = new Identifier("stacc", "stacc");
 		ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(new IdentifiableResourceReloadListener() {
 			@Override
@@ -56,7 +53,7 @@ public interface Stacc {
 							});
 						}
 					} catch (IOException e) {
-						throw new RuntimeException(e);
+						LOGGER.info("no stacc properties found!");
 					}
 					return ov;
 				}, prepareExecutor).thenCompose(synchronizer::whenPrepared).thenAcceptAsync(o -> {
@@ -66,9 +63,10 @@ public interface Stacc {
 				});
 			}
 		});
+		LOGGER.info("Stack has initialized!");
 	}
 
 	static void setMax(Item item, int max) {
-		((StaccMixin.ItemAccess) item).setMaxCount(max);
+		((ItemAccess) item).setMaxCount(max);
 	}
 }
