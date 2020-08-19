@@ -52,12 +52,12 @@ public class RenderItemCountFixin {
 
 	@Unique
 	private static float stacc_getScale(String string) {
-		//if (string.length() > 3) {
-		return .5f;
-		//} else if (string.length() == 3) {
-		//	return .75f;
-		//}
-		//return 1f;
+		if (string.length() > 3) {
+			return .5f;
+		} else if (string.length() == 3) {
+			return .75f;
+		}
+		return 1f;
 	}
 
 	@Inject (method = "renderGuiItemOverlay(Lnet/minecraft/client/font/TextRenderer;Lnet/minecraft/item/ItemStack;IILjava/lang/String;)V",
