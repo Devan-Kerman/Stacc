@@ -3,14 +3,21 @@
   "package": "net.devtech.stacc.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
+    "AnvilDesktopHandSplayedFixin",
+    "BookConsumeFixin",
+    "ClearCommandBugFixin",
+    "ClearCommandBugFixin$InventoriesFixin",
+    "DesktopHandSplayedDuplicationFixin",
+    "DesyncFixin",
+    "DesyncFixin$CreativeDesyncFixin",
+    "EnchantingFixin",
     "InventoryMixin",
     "ItemAccess",
-    "ItemStackMixin",
-    "PacketByteBufMixin",
-    "ServerPlayNetworkHandlerMixin"
+    "OOMFixin",
+    "SerializationFixin"
   ],
   "client": [
-    "ItemRendererMixin"
+    "RenderItemCountFixin"
   ],
   "injectors": {
     "defaultRequire": 1
