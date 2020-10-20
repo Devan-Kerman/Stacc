@@ -41,8 +41,8 @@ public abstract class SerializationFixin {
 	void onSerialization(CompoundTag tag, CallbackInfoReturnable<CompoundTag> callbackInformationReturnable) {
 		if (this.count > Byte.MAX_VALUE) {
 			tag.putInt("countInteger", this.count);
-			// fix overflow bug
-			tag.putByte("Count", (byte) 64);
+			// make downgrading less painful
+			tag.putByte("Count", (byte) 127);
 		}
 	}
 

@@ -34,8 +34,14 @@ public class ClearCommandBugFixin {
 
 	@Mixin (Inventories.class)
 	private static class InventoriesFixin {
-		@Inject (method = "method_29235", at = @At (value = "RETURN"), cancellable = true)
-		private static void total(ItemStack itemStack, Predicate<ItemStack> predicate, int i, boolean bl, CallbackInfoReturnable<Integer> cir) {
+		@Inject (method = "remove(Lnet/minecraft/item/ItemStack;Ljava/util/function/Predicate;IZ)I",
+				at = @At (value = "RETURN"),
+				cancellable = true)
+		private static void total(ItemStack itemStack,
+				Predicate<ItemStack> predicate,
+				int i,
+				boolean bl,
+				CallbackInfoReturnable<Integer> cir) {
 			Stacc.COUNT.set(Stacc.COUNT.get() + cir.getReturnValue());
 		}
 	}

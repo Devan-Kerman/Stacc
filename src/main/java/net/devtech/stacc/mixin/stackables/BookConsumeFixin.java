@@ -1,5 +1,6 @@
-package net.devtech.stacc.mixin;
+package net.devtech.stacc.mixin.stackables;
 
+import net.devtech.stacc.Stacc;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -20,8 +21,9 @@ public class BookConsumeFixin {
 					target = "Lnet/minecraft/server/network/ServerPlayerEntity;setStackInHand(Lnet/minecraft/util/Hand;Lnet/minecraft/item/ItemStack;)" +
 					         "V"))
 	private void setStack(ServerPlayerEntity entity, Hand hand, ItemStack stack, BookUpdateC2SPacket packet) {
-		stack.setCount(this.player.getStackInHand(packet.getHand())
-		                          .getCount());
-		entity.setStackInHand(hand, stack);
+		if (Stacc.STACKABLE.get()) {
+			stack.setCount(this.player.getStackInHand(packet.getHand()).getCount());
+			entity.setStackInHand(hand, stack);
+		}
 	}
 }
