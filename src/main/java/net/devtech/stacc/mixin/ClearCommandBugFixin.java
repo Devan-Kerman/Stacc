@@ -3,7 +3,7 @@ package net.devtech.stacc.mixin;
 import java.util.Collection;
 import java.util.function.Predicate;
 
-import net.devtech.stacc.Stacc;
+import net.devtech.stacc.StaccGlobals;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -21,14 +21,14 @@ public class ClearCommandBugFixin {
 	@Inject (method = "execute", at = @At ("HEAD"))
 	private static void clearCommand(ServerCommandSource source, Collection<ServerPlayerEntity> targets, Predicate<ItemStack> item, int maxCount,
 	                                 CallbackInfoReturnable<Integer> cir) {
-		Stacc.COUNT.set(0L);
+		StaccGlobals.COUNT.set(0L);
 	}
 
 	@ModifyArg (method = "execute",
 			at = @At (value = "INVOKE", target = "Lnet/minecraft/text/TranslatableText;<init>(Ljava/lang/String;[Ljava/lang/Object;)V"),
 			index = 1)
 	private static Object[] exec(Object[] arr) {
-		arr[0] = Stacc.COUNT.get();
+		arr[0] = StaccGlobals.COUNT.get();
 		return arr;
 	}
 
@@ -42,7 +42,7 @@ public class ClearCommandBugFixin {
 				int i,
 				boolean bl,
 				CallbackInfoReturnable<Integer> cir) {
-			Stacc.COUNT.set(Stacc.COUNT.get() + cir.getReturnValue());
+			StaccGlobals.COUNT.set(StaccGlobals.COUNT.get() + cir.getReturnValue());
 		}
 	}
 }

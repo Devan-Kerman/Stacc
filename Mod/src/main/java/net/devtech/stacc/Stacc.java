@@ -4,7 +4,7 @@ import java.util.Optional;
 import java.util.Properties;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
-import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.logging.Logger;
 
 import net.devtech.stacc.mixin.ItemAccess;
 
@@ -19,12 +19,11 @@ import net.minecraft.util.registry.Registry;
 
 import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
+import net.fabricmc.loader.api.FabricLoader;
 
 
 public interface Stacc {
-	ThreadLocal<Long> COUNT = ThreadLocal.withInitial(() -> 0L);
 	int DEFAULT = 1_000_000_000;
-	AtomicBoolean STACKABLE = new AtomicBoolean(false);
 
 	static void onInitialize() {
 		Identifier val = new Identifier("stacc", "stacc");
@@ -57,7 +56,7 @@ public interface Stacc {
 					                     return properties;
 				                     }, prepareExecutor).thenCompose(synchronizer::whenPrepared).thenAcceptAsync(p -> {
 					                     boolean stackable = p.getProperty("enable_stackable", "false").equals("true");
-					                     STACKABLE.set(stackable);
+					                     StaccGlobals.STACKABLE.set(stackable);
 					                     if (stackable) {
 						                     System.out.println(
 								                     "[Stacc] Stackable Unstackables is an unsupported feature of " +
@@ -92,6 +91,23 @@ public interface Stacc {
 			                     }
 		                     });
 		System.out.println("[Stacc] initialized!");
+		if (FabricLoader.getInstance().isModLoaded("optifabric")) {
+			Logger logger = Logger.getLogger("Stacc");
+			logger.warning("=========== Optifabric Detected! ===========");
+			logger.warning("Optifine is a closed source and invasive mod that uses an archaic method of patching");
+			logger.warning(
+					"This makes it difficult/impossible for mod authors to deal with it and fix issues when they " +
+					"arise");
+			logger.warning("So, for everyone's sake consider using Sodium and Optifine alternatives");
+			logger.warning("If you're using Optifine for performance, use Sodium, it's better");
+			logger.warning("If you're using Optifine for shaders, use Canvas");
+			logger.warning("If you're using Optifine for customization, there are many fabric mods that offer similar "
+			               + "features");
+			logger.warning(
+					"If you're using Optifine for resource packs, there's CBT, and other mods that do the same thing " + "as well, most with optifine format support");
+			logger.warning("https://gist.github.com/LambdAurora/1f6a4a99af374ce500f250c6b42e8754");
+			logger.warning("=========== Optifabric Detected! ===========");
+		}
 	}
 
 	static void setMax(Item item, int max) {

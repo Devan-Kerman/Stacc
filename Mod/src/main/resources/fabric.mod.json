@@ -1,12 +1,14 @@
 {
   "schemaVersion": 1,
-  "id": "stacc",
+  "id": "stacc_mod",
   "version": "${version}",
-  "name": "Stacc",
+  "name": "Stacc Mod",
   "license": "CC0-1.0",
   "icon": "assets/stacc/icon.png",
   "environment": "*",
-  "mixins": [
-    "stacc.mixins.json"
-  ]
+  "entrypoints": {
+    "main": [
+      "net.devtech.stacc.Stacc::onInitialize"
+    ]
+  }
 }

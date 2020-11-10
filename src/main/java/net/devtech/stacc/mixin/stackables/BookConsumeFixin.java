@@ -1,29 +1,24 @@
 package net.devtech.stacc.mixin.stackables;
 
-import net.devtech.stacc.Stacc;
+import net.devtech.stacc.StaccGlobals;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.packet.c2s.play.BookUpdateC2SPacket;
 import net.minecraft.server.network.ServerPlayNetworkHandler;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.Hand;
 
 @Mixin (ServerPlayNetworkHandler.class)
 public class BookConsumeFixin {
-	@Shadow public ServerPlayerEntity player;
-
-	@Redirect (method = "onBookUpdate",
+	@Redirect (method = "method_31276",
 			at = @At (value = "INVOKE",
-					target = "Lnet/minecraft/server/network/ServerPlayerEntity;setStackInHand(Lnet/minecraft/util/Hand;Lnet/minecraft/item/ItemStack;)" +
+					target = "Lnet/minecraft/entity/player/PlayerInventory;setStack(ILnet/minecraft/item/ItemStack;)" +
 					         "V"))
-	private void setStack(ServerPlayerEntity entity, Hand hand, ItemStack stack, BookUpdateC2SPacket packet) {
-		if (Stacc.STACKABLE.get()) {
-			stack.setCount(this.player.getStackInHand(packet.getHand()).getCount());
-			entity.setStackInHand(hand, stack);
+	private void setStack(PlayerInventory inventory, int slot, ItemStack stack) {
+		if (StaccGlobals.STACKABLE.get()) {
+			stack.setCount(inventory.getStack(slot).getCount());
+			inventory.setStack(slot, stack);
 		}
 	}
 }

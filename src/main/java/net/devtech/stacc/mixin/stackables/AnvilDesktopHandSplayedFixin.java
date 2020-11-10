@@ -1,6 +1,6 @@
 package net.devtech.stacc.mixin.stackables;
 
-import net.devtech.stacc.Stacc;
+import net.devtech.stacc.StaccGlobals;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -31,7 +31,7 @@ public abstract class AnvilDesktopHandSplayedFixin extends ForgingScreenHandler 
 
 	@Inject (method = "updateResult", at = @At (value = "INVOKE", target = "Lnet/minecraft/screen/AnvilScreenHandler;sendContentUpdates()V"))
 	private void uncrob(CallbackInfo ci) {
-		if (Stacc.STACKABLE.get()) {
+		if (StaccGlobals.STACKABLE.get()) {
 			ItemStack input = this.input.getStack(0);
 			ItemStack input2 = this.input.getStack(1);
 			int count = input.getCount();
