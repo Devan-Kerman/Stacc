@@ -17,7 +17,9 @@ dependencies {
 }
 ```
 
-## Usage
+## Mod Usage
+Stacc also has a mod version, that uses datapack configs and is what is on curseforge
+
 make a datapack with the a file in the data dir under
 stacc/stacc.properties
 
