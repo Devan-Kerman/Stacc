@@ -14,6 +14,7 @@ repositories {
 
 dependencies {
   modImplementation "net.devtech:Stacc:1.0.0"
+  include "net.devtech:Stacc:1.0.0"
 }
 ```
 
