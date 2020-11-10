@@ -1,6 +1,22 @@
 # Stacc
 infinite stacking for fabric
 
+# API
+As of November 9th 2020, Stacc is now an 'api' mod. However there is no api, just include the mod inside your mod and now you can set `Item.Settings#maxCount` to any number below `int_max/2`!
+
+gradle:
+```
+repositories {
+	maven {
+		url = 'https://raw.githubusercontent.com/Devan-Kerman/Devan-Repo/master/'
+	}
+}
+
+dependencies {
+  modImplementation "net.devtech:Stacc:1.0.0"
+}
+```
+
 ## Usage
 make a datapack with the a file in the data dir under
 stacc/stacc.properties
