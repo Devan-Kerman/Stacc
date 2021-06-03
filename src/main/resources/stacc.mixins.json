@@ -5,6 +5,7 @@
   "mixins": [
     "ClearCommandBugFixin",
     "ClearCommandBugFixin$InventoriesFixin",
+    "CraftingInventoryMixin_LimitStackSize",
     "CreativeDesyncFixin",
     "DesktopHandSplayedDuplicationFixin",
     "DesyncFixin",
