@@ -2,33 +2,24 @@
 infinite stacking for fabric
 
 # API
-As of November 9th 2020, Stacc is now an 'api' mod. However there is no api, just include the mod inside your mod and now you can set `Item.Settings#maxCount` to any number below `int_max/2`!
+~~As of November 9th 2020, Stacc is now an 'api' mod. However there is no api, just include the mod inside your mod and now you can set `Item.Settings#maxCount` to any number below `int_max/2`!~~
+
+As of June 3rd 2021, Stacc is now **only** an 'api' mod. 
+To use it, simply configure your item to have a max stack size of greater than 64. (Item$Settings#maxCount)
+It is not recommended setting the stack size greater than int_max/2 (1,073,741,823).
 
 gradle:
-```
+```groovy
 repositories {
-	maven {
-		url = 'https://raw.githubusercontent.com/Devan-Kerman/Devan-Repo/master/'
-	}
+    maven {
+        url = uri("https://storage.googleapis.com/devan-maven/")
+        // for versions lower than 1.2.0
+        // url = uri("https://raw.githubusercontent.com/Devan-Kerman/Devan-Repo/master/")
+    }
 }
 
 dependencies {
-  include "net.devtech:Stacc:1.0.0"
+  // there is no api, just set maxCount in Item$Settings to values over 127
+  modRuntime(include("net.devtech:Stacc:1.2.1"))
 }
-```
-
-## Mod Usage
-Stacc also has a mod version, that uses datapack configs and is what is on curseforge
-
-make a datapack with the a file in the data dir under
-stacc/stacc.properties
-
-The theoretical maximum value is 2,147,483,647! But it's recommended to not go above 1 billion, 2 billion max.
-```properties
-# minecraft objects don't need namespaces
-stone=5
-# but u can do it anyways
-minecraft\:iron_block=5
-# to change the default max stack value
-default=64
 ```
