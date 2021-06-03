@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
@@ -30,19 +30,19 @@ public abstract class SerializationFixin {
 	@Environment (EnvType.CLIENT) private static final NumberFormat FORMAT = NumberFormat.getNumberInstance(Locale.US);
 	@Shadow private int count;
 
-	@Inject (at = @At ("TAIL"), method = "<init>(Lnet/minecraft/nbt/CompoundTag;)V")
-	void onDeserialization(CompoundTag tag, CallbackInfo callbackInformation) {
+	@Inject (at = @At ("TAIL"), method = "<init>(Lnet/minecraft/nbt/NbtCompound;)V")
+	void onDeserialization(NbtCompound tag, CallbackInfo callbackInformation) {
 		if (tag.contains("countInteger")) {
 			this.count = tag.getInt("countInteger");
 		}
 	}
 
-	@Inject (at = @At ("TAIL"), method = "toTag(Lnet/minecraft/nbt/CompoundTag;)Lnet/minecraft/nbt/CompoundTag;")
-	void onSerialization(CompoundTag tag, CallbackInfoReturnable<CompoundTag> callbackInformationReturnable) {
+	@Inject (at = @At ("TAIL"), method = "writeNbt")
+	void onSerialization(NbtCompound tag, CallbackInfoReturnable<NbtCompound> callbackInformationReturnable) {
 		if (this.count > Byte.MAX_VALUE) {
 			tag.putInt("countInteger", this.count);
 			// make downgrading less painful
-			tag.putByte("Count", (byte) 127);
+			tag.putByte("Count", Byte.MAX_VALUE);
 		}
 	}
 

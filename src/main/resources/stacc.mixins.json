@@ -2,21 +2,15 @@
   "required": true,
   "package": "net.devtech.stacc.mixin",
   "compatibilityLevel": "JAVA_8",
-  "plugin": "net.devtech.stacc.OptifabricMixinPlugin",
   "mixins": [
     "ClearCommandBugFixin",
     "ClearCommandBugFixin$InventoriesFixin",
     "CreativeDesyncFixin",
     "DesktopHandSplayedDuplicationFixin",
+    "DesyncFixin",
     "InventoryMixin",
-    "ItemAccess",
     "OOMFixin",
-    "SerializationFixin",
-    "disable_optifabric.DesyncFixin",
-    "optifabric.OptifabricDesyncFixin",
-    "stackables.AnvilDesktopHandSplayedFixin",
-    "stackables.BookConsumeFixin",
-    "stackables.EnchantingFixin"
+    "SerializationFixin"
   ],
   "client": [
     "RenderItemCountFixin"

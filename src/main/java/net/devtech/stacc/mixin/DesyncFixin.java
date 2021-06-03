@@ -1,4 +1,4 @@
-package net.devtech.stacc.mixin.optifabric;
+package net.devtech.stacc.mixin;
 
 import io.netty.buffer.ByteBuf;
 import org.spongepowered.asm.mixin.Mixin;
@@ -15,8 +15,7 @@ import net.minecraft.network.PacketByteBuf;
  * fixes client-server desyncs
  */
 @Mixin (PacketByteBuf.class)
-public abstract class OptifabricDesyncFixin {
-	// change signature to boolean for optifine
+public abstract class DesyncFixin {
 	@Inject (method = "writeItemStack(Lnet/minecraft/item/ItemStack;)Lnet/minecraft/network/PacketByteBuf;",
 			at = @At (value = "INVOKE",
 					target =
@@ -29,8 +28,7 @@ public abstract class OptifabricDesyncFixin {
 	public abstract ByteBuf writeInt(int i);
 
 	@ModifyArg (method = "readItemStack",
-			at = @At (value = "INVOKE",
-					target = "Lnet/minecraft/item/ItemStack;<init>(Lnet/minecraft/item/ItemConvertible;I)V"),
+			at = @At (value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;<init>(Lnet/minecraft/item/ItemConvertible;I)V"),
 			index = 1)
 	private int doThing(int amount) {
 		return this.readInt();
