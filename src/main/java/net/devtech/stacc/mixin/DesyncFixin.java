@@ -19,7 +19,7 @@ public abstract class DesyncFixin {
 	@Inject (method = "writeItemStack(Lnet/minecraft/item/ItemStack;)Lnet/minecraft/network/PacketByteBuf;",
 			at = @At (value = "INVOKE",
 					target =
-							"Lnet/minecraft/network/PacketByteBuf;writeCompoundTag(Lnet/minecraft/nbt/CompoundTag;)Lnet/minecraft/network/PacketByteBuf;"))
+							"Lnet/minecraft/network/PacketByteBuf;writeNbt(Lnet/minecraft/nbt/NbtCompound;)Lnet/minecraft/network/PacketByteBuf;"))
 	private void write(ItemStack itemStack, CallbackInfoReturnable<PacketByteBuf> cir) {
 		this.writeInt(itemStack.getCount());
 	}
