@@ -17,6 +17,7 @@ public abstract class CraftingInventoryMixin_LimitStackSize implements Inventory
 			STACC_SIZE_LIMIT = 1_000;
 		}
 	}
+
 	@Override
 	public int getMaxCountPerStack() {
 		return STACC_SIZE_LIMIT;
