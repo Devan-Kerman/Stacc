@@ -15,7 +15,6 @@ import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
@@ -51,7 +50,7 @@ public abstract class SerializationFixin {
 	private void addOverflowTooltip(PlayerEntity player, TooltipContext context, CallbackInfoReturnable<List<Text>> cir) {
 		if (this.getCount() > 1000) {
 			List<Text> texts = cir.getReturnValue();
-			texts.add(1, new LiteralText(FORMAT.format(this.getCount())).formatted(Formatting.GRAY));
+			texts.add(1, Text.literal(FORMAT.format(this.getCount())).formatted(Formatting.GRAY));
 		}
 	}
 
