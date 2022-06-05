@@ -25,7 +25,7 @@ public class ClearCommandBugFixin {
 	}
 
 	@ModifyArg (method = "execute",
-			at = @At (value = "INVOKE", target = "Lnet/minecraft/text/TranslatableText;<init>(Ljava/lang/String;[Ljava/lang/Object;)V"),
+			at = @At (value = "INVOKE", target = "Lnet/minecraft/text/Text;translatable(Ljava/lang/String;[Ljava/lang/Object;)Lnet/minecraft/text/MutableText;"),
 			index = 1)
 	private static Object[] exec(Object[] arr) {
 		arr[0] = StaccGlobals.COUNT.get();
