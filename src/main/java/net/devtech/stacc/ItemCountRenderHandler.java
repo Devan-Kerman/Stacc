@@ -47,8 +47,8 @@ public class ItemCountRenderHandler {
 	}
 
 	/**
-	 * mods can override this class and set the instance.
-	 * There can only really be one handler so it overrides any others.
+	 * mods can extend this class and set the instance.
+	 * There can only really be one handler, so it overrides any others.
 	 */
 	public static void setInstance(ItemCountRenderHandler instance) {
 		Validate.notNull(instance, "instance cannot be null");
