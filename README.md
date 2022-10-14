@@ -20,6 +20,6 @@ repositories {
 
 dependencies {
   // there is no api (well except for render handler), just set maxCount in Item$Settings to values over 64
-  modRuntime(include("net.devtech:Stacc:1.3.4"))
+  modRuntime("net.devtech:Stacc:1.3.4") // you should probably include the api though
 }
 ```
