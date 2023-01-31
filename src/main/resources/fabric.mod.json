@@ -3,10 +3,16 @@
   "id": "stacc",
   "version": "${version}",
   "name": "Stacc",
+  "description": "An library mod that allows developers and modpack authors to make items with >64 stack size",
   "license": "CC0-1.0",
-  "icon": "assets/stacc/icon.png",
   "environment": "*",
+  "icon": "assets/stacc/icon.png",
   "mixins": [
     "stacc.mixins.json"
-  ]
+  ],
+  "entrypoints": {
+    "main": [
+      "net.devtech.stacc.StaccLoader"
+    ]
+  }
 }

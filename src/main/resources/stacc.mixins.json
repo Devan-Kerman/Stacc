@@ -11,6 +11,7 @@
     "DesktopHandSplayedDuplicationFixin",
     "DesyncFixin",
     "InventoryMixin",
+    "ItemMaxCountAccess",
     "OOMFixin",
     "PlayerInventoryMixin",
     "SerializationFixin"

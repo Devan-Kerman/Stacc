@@ -1,6 +1,7 @@
 plugins {
     id 'fabric-loom' version '0.12-SNAPSHOT'
     id 'maven-publish'
+    id "me.shedaniel.unified-publishing" version "0.1.+"
 }
 
 sourceCompatibility = JavaVersion.VERSION_17
@@ -14,6 +15,7 @@ dependencies {
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
     mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 }
 
 processResources {
@@ -35,13 +37,7 @@ jar {
 publishing {
     publications {
         mavenJava(MavenPublication) {
-            // add all the jars that should be included when publishing to maven
-            artifact(remapJar) {
-                builtBy remapJar
-            }
-            artifact(sourcesJar) {
-                builtBy remapSourcesJar
-            }
+            from(components["java"])
         }
     }
     // select the repositories you want to publish to
@@ -53,6 +49,40 @@ publishing {
                 credentials {
                     username project.hasProperty('maven_username') ? project.property('maven_username') : ""
                     password project.hasProperty('maven_password') ? project.property('maven_password') : ""
+                }
+            }
+        }
+    }
+}
+
+File file = file("tokens.properties")
+if(file.exists()) {
+    Properties properties = new Properties()
+    try (InputStream stream = new FileInputStream(file)) {
+        properties.load(stream)
+    }
+
+    unifiedPublishing {
+        project {
+            gameVersions = [minecraft_version]
+            gameLoaders = ["fabric"]
+
+            mainPublication tasks.remapJar
+            //secondaryPublication tasks.remapSourcesJar
+
+            var cfToken = properties.getProperty("cf_token")
+            if (cfToken != null) {
+                curseforge {
+                    token = cfToken
+                    id = "820136"
+                }
+            }
+
+            var mrToken = properties.getProperty("mr_token")
+            if (mrToken != null) {
+                modrinth {
+                    token = mrToken
+                    id = "fauLGdJR"
                 }
             }
         }

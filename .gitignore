@@ -33,3 +33,5 @@ run
 /Mod/.gradle
 /Mod/build/
 Mod/run/
+
+tokens.properties
