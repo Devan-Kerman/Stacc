@@ -28,7 +28,7 @@ gradle:
 ```groovy
 repositories {
     maven {
-        url = uri("https://storage.googleapis.com/devan-maven/")
+        url = uri("https://maven.ueaj.dev")
         // for versions lower than 1.2.0
         // url = uri("https://raw.githubusercontent.com/Devan-Kerman/Devan-Repo/master/")
     }
@@ -36,6 +36,6 @@ repositories {
 
 dependencies {
   // there is no api (well except for render handler), just set maxCount in Item$Settings to values over 64
-  modRuntime("net.devtech:Stacc:1.5.1") // you should probably include the api though
+  modRuntime("net.devtech:stacc:1.5.2") // you should probably include the api though
 }
 ```

@@ -43,47 +43,36 @@ publishing {
     // select the repositories you want to publish to
     repositories {
         maven {
-            def mavenUrl = project.hasProperty('maven_url') ? project.property('maven_url') : ""
-            url mavenUrl
-            if (mavenUrl.startsWith("http")) {
-                credentials {
-                    username project.hasProperty('maven_username') ? project.property('maven_username') : ""
-                    password project.hasProperty('maven_password') ? project.property('maven_password') : ""
-                }
+            url(project.findProperty('maven_url'))
+            credentials {
+                username(project.findProperty('maven_username'))
+                password(project.findProperty('maven_password'))
             }
         }
     }
 }
 
-File file = file("tokens.properties")
-if(file.exists()) {
-    Properties properties = new Properties()
-    try (InputStream stream = new FileInputStream(file)) {
-        properties.load(stream)
-    }
+unifiedPublishing {
+    project {
+        gameVersions = [minecraft_version]
+        gameLoaders = ["fabric"]
 
-    unifiedPublishing {
-        project {
-            gameVersions = [minecraft_version]
-            gameLoaders = ["fabric"]
+        mainPublication tasks.remapJar
+        //secondaryPublication tasks.remapSourcesJar
 
-            mainPublication tasks.remapJar
-            //secondaryPublication tasks.remapSourcesJar
-
-            var cfToken = properties.getProperty("cf_token")
-            if (cfToken != null) {
-                curseforge {
-                    token = cfToken
-                    id = "820136"
-                }
+        var cfToken = project.findProperty("cf_token")
+        if (cfToken != null) {
+            curseforge {
+                token = cfToken
+                id = "820136"
             }
+        }
 
-            var mrToken = properties.getProperty("mr_token")
-            if (mrToken != null) {
-                modrinth {
-                    token = mrToken
-                    id = "fauLGdJR"
-                }
+        var mrToken = project.findProperty("mr_token")
+        if (mrToken != null) {
+            modrinth {
+                token = mrToken
+                id = "fauLGdJR"
             }
         }
     }
