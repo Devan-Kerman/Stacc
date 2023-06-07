@@ -24,7 +24,7 @@ public class ClearCommandBugFixin {
 		StaccGlobals.COUNT.set(0L);
 	}
 
-	@ModifyArg (method = "execute",
+	@ModifyArg (method = {"method_51936", "method_51937", "method_51938", "method_51939"},
 			at = @At (value = "INVOKE", target = "Lnet/minecraft/text/Text;translatable(Ljava/lang/String;[Ljava/lang/Object;)Lnet/minecraft/text/MutableText;"),
 			index = 1)
 	private static Object[] exec(Object[] arr) {
@@ -35,8 +35,8 @@ public class ClearCommandBugFixin {
 	@Mixin (Inventories.class)
 	private static class InventoriesFixin {
 		@Inject (method = "remove(Lnet/minecraft/item/ItemStack;Ljava/util/function/Predicate;IZ)I",
-				at = @At (value = "RETURN"),
-				cancellable = true)
+				at = @At (value = "RETURN")
+        )
 		private static void total(ItemStack itemStack,
 				Predicate<ItemStack> predicate,
 				int i,
