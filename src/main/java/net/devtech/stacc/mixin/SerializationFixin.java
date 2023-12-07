@@ -26,7 +26,7 @@ import net.fabricmc.api.Environment;
  */
 @Mixin (ItemStack.class)
 public abstract class SerializationFixin {
-	@Environment (EnvType.CLIENT) private static final NumberFormat FORMAT = NumberFormat.getNumberInstance(Locale.US);
+	private static final NumberFormat FORMAT = NumberFormat.getNumberInstance(Locale.US);
 	@Shadow private int count;
 
 	@Inject (at = @At ("TAIL"), method = "<init>(Lnet/minecraft/nbt/NbtCompound;)V")
