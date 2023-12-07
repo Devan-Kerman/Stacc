@@ -45,7 +45,6 @@ public abstract class SerializationFixin {
 		}
 	}
 
-	@Environment (EnvType.CLIENT)
 	@Inject (method = "getTooltip", at = @At ("RETURN"), cancellable = true)
 	private void addOverflowTooltip(PlayerEntity player, TooltipContext context, CallbackInfoReturnable<List<Text>> cir) {
 		if (this.getCount() > 1000) {
