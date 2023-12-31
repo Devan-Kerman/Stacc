@@ -6,9 +6,11 @@ import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.inventory.Inventory;
 
 import net.fabricmc.loader.api.FabricLoader;
+import org.spongepowered.asm.mixin.Unique;
 
 @Mixin(CraftingInventory.class)
 public abstract class CraftingInventoryMixin_LimitStackSize implements Inventory {
+	@Unique
 	private static final int STACC_SIZE_LIMIT;
 	static {
 		if(FabricLoader.getInstance().isModLoaded("fastbench")) {
